@@ -421,7 +421,7 @@ class mvView:
         if parents is None:
            parents = []
  
-        for key, val in parms.iteritems():
+        for key, val in parms.items():
  
             newlist = list(parents)
  
@@ -454,7 +454,7 @@ class mvView:
                     if elementType == "list":
                         element = element[ind]
  
-                print str(key) + " | " + str(val)
+                print(str(key) + " | " + str(val))
 
                 if objType == "unicode":
                     setattr(element, str(key), str(val))
@@ -471,7 +471,7 @@ class mvView:
                 self.update_view(val, 0, newlist)
  
             else:
-                print "ERROR> We have an object in our dictionary?  There should be no way for this to happen."
+                print("ERROR> We have an object in our dictionary?  There should be no way for this to happen.")
 
 
 
@@ -535,14 +535,14 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
     def on_message(self, message):
 
         if self.debug:
-           print "mvWSHandler.on_message('" + message + "')"
+           print("mvWSHandler.on_message('" + message + "')")
 
         # Find the image size
 
         ref_file = self.view.gray_file.fits_file
 
         if self.view.display_mode == "":
-            print "No images defined. Nothing to display."
+            print("No images defined. Nothing to display.")
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
             return
@@ -556,22 +556,22 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
         command = "mExamine " + ref_file
 
         if self.debug:
-           print "\nMONTAGE Command:\n---------------\n" + command
+           print("\nMONTAGE Command:\n---------------\n" + command)
 
         p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stderr = p.stderr.read()
 
         if stderr:
-            print stderr
+            print(stderr)
             raise Exception(stderr)
             return
 
         retval = mvStruct("mExamine", p.stdout.read().strip())
 
         if self.debug:
-            print "\nRETURN Struct:\n-------------\n"
-            print retval
+            print("\nRETURN Struct:\n-------------\n")
+            print(retval)
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
 
@@ -798,7 +798,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
         sys.stdout.flush()
         
         if self.view.display_mode == "":
-            print "No images defined. Nothing to display."
+            print("No images defined. Nothing to display.")
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
             return
@@ -816,7 +816,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(int(self.view.ymax) - int(self.view.ymin))
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -829,8 +829,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mSubimage", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
                 sys.stdout.write('\n>>> ')
                 sys.stdout.flush()
 
@@ -851,7 +851,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(int(self.view.ymax) - int(self.view.ymin))
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -864,8 +864,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mSubimage", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
 
 
             # Green
@@ -879,7 +879,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(int(self.view.ymax) - int(self.view.ymin))
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -892,8 +892,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mSubimage", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
 
 
             # Red
@@ -907,7 +907,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(int(self.view.ymax) - int(self.view.ymin))
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -920,8 +920,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mSubimage", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
                 sys.stdout.write('\n>>> ')
                 sys.stdout.flush()
 
@@ -934,7 +934,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command = "mExamine " + self.workspace + "/red_subimage.fits"
 
         if self.debug:
-           print "\nMONTAGE Command:\n---------------\n" + command
+           print("\nMONTAGE Command:\n---------------\n" + command)
 
         p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -947,8 +947,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
         retval = mvStruct("mExamine", p.stdout.read().strip())
 
         if self.debug:
-            print "\nRETURN Struct:\n-------------\n"
-            print retval
+            print("\nRETURN Struct:\n-------------\n")
+            print(retval)
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
 
@@ -984,7 +984,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(xfactor)
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -997,8 +997,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mShrink", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
                 sys.stdout.write('\n>>> ')
                 sys.stdout.flush()
 
@@ -1015,7 +1015,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(xfactor)
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -1028,8 +1028,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mShrink", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
 
 
             # Green
@@ -1040,7 +1040,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(xfactor)
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -1053,8 +1053,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mShrink", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
 
 
             # Red
@@ -1065,7 +1065,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             command += " " + str(xfactor)
 
             if self.debug:
-               print "\nMONTAGE Command:\n---------------\n" + command
+               print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -1078,8 +1078,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             retval = mvStruct("mShrink", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
                 sys.stdout.write('\n>>> ')
                 sys.stdout.flush()
 
@@ -1186,7 +1186,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
 
 
             else:
-                print "Invalid overlay type '" + str(type) + "' in view specification."
+                print("Invalid overlay type '" + str(type) + "' in view specification.")
 
 
         if self.view.display_mode == "grayscale":
@@ -1269,7 +1269,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
         command += " -jpeg " + self.workspace + "/" + str(image_file) 
 
         if self.debug:
-           print "\nMONTAGE Command:\n---------------\n" + command
+           print("\nMONTAGE Command:\n---------------\n" + command)
 
         p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -1282,8 +1282,8 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
         retval = mvStruct("mViewer", p.stdout.read().strip())
 
         if self.debug:
-            print "\nRETURN Struct:\n-------------\n"
-            print retval
+            print("\nRETURN Struct:\n-------------\n")
+            print(retval)
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
 
@@ -1292,13 +1292,13 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
             return
 
         if retval.stat == "WARNING":
-            print "\nWARNING: " + retval.msg
+            print("\nWARNING: " + retval.msg)
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
             return
 
         if retval.stat == "ERROR":
-            print "\nERROR: " + retval.msg
+            print("\nERROR: " + retval.msg)
             sys.stdout.write('\n>>> ')
             sys.stdout.flush()
             return
@@ -1319,7 +1319,7 @@ class mvWSHandler(tornado.websocket.WebSocketHandler):
 
     def on_close(self):
 
-        print '\nWeb connection closed by browser.'
+        print('\nWeb connection closed by browser.')
 
         sys.stdout.write('\n>>> ')
         sys.stdout.flush()
@@ -1356,7 +1356,7 @@ class mvThread(Thread):
         global mvViewData
 
         if self.workspace is None:
-            print "Please set a workspace location first."
+            print("Please set a workspace location first.")
             return
 
         mv_workspace = self.workspace
@@ -1384,7 +1384,7 @@ class mvThread(Thread):
     def command(self, msg):
 
         if self.debug:
-            print "DEBUG> mvThread.command('" + msg + "')"
+            print("DEBUG> mvThread.command('" + msg + "')")
 
         self.remote = mvHandle
 
@@ -1430,7 +1430,7 @@ class mViewer():
         mv_workspace = workspace
 
         if self.debug:
-           print "Workspace: " + mv_workspace
+           print("Workspace: " + mv_workspace)
 
 
 
@@ -1521,13 +1521,13 @@ class mViewer():
         try:
             os.rmdir(self.workspace)
         except:
-            print "Workspace directory ('" + self.workspace + "') not deleted (not empty)"
+            print("Workspace directory ('" + self.workspace + "') not deleted (not empty)")
 
         try:
             self.command("close")
-            print "Browser connection closed."
+            print("Browser connection closed.")
         except:
-            print "No active browser connection."
+            print("No active browser connection.")
 
 
     # Utility function: set the display mode (grayscale / color)
@@ -1877,7 +1877,7 @@ class mViewer():
             command = "mExamine -p " + repr(boxx) + "p " + repr(boxy) + "p " + repr(radius) + "p " + ref_file[i]
 
             if self.debug:
-                print "\nMONTAGE Command:\n---------------\n" + command
+                print("\nMONTAGE Command:\n---------------\n" + command)
 
             p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -1890,25 +1890,25 @@ class mViewer():
             retval = mvStruct("mExamine", p.stdout.read().strip())
 
             if self.debug:
-                print "\nRETURN Struct:\n-------------\n"
-                print retval
+                print("\nRETURN Struct:\n-------------\n")
+                print(retval)
                 sys.stdout.write('\n>>> ')
                 sys.stdout.flush()
 
             
-            print ""
-            print "   File " + ref_file[i] + ":"
-            print ""
-            print "                 Flux    (sigma)                 (RA, Dec)         Pix Coord"
-            print "                ------------------      -------------------------  ----------"
-            print "      Center:   " + repr(retval.fluxref) + " (" + repr(retval.sigmaref) + ")  at  (" + repr(retval.raref) + ", " + repr(retval.decref) + ")  [" + repr(retval.xref) + ", " + repr(retval.yref) + "]"
-            print "      Min:      " + repr(retval.fluxmin) + " (" + repr(retval.sigmamin) + ")  at  (" + repr(retval.ramin) + ", " + repr(retval.decmin) + ")  [" + repr(retval.xmin) + ", " + repr(retval.ymin) + "]"
-            print "      Max:      " + repr(retval.fluxmax) + " (" + repr(retval.sigmamax) + ")  at  (" + repr(retval.ramax) + ", " + repr(retval.decmax) + ")  [" + repr(retval.xmax) + ", " + repr(retval.ymax) + "]"
-            print ""
-            print "      Average:  " + repr(retval.aveflux) + " +/- " + repr(retval.rmsflux)
-            print ""
-            print "      Radius:   " + repr(retval.radius) + " degrees (" + repr(retval.radpix) + " pixels) / Total area: " + repr(retval.npixel) + " pixels (" + repr(retval.nnull) + " nulls)"
-            print ""
+            print("")
+            print("   File " + ref_file[i] + ":")
+            print("")
+            print("                 Flux    (sigma)                 (RA, Dec)         Pix Coord")
+            print("                ------------------      -------------------------  ----------")
+            print("      Center:   " + repr(retval.fluxref) + " (" + repr(retval.sigmaref) + ")  at  (" + repr(retval.raref) + ", " + repr(retval.decref) + ")  [" + repr(retval.xref) + ", " + repr(retval.yref) + "]")
+            print("      Min:      " + repr(retval.fluxmin) + " (" + repr(retval.sigmamin) + ")  at  (" + repr(retval.ramin) + ", " + repr(retval.decmin) + ")  [" + repr(retval.xmin) + ", " + repr(retval.ymin) + "]")
+            print("      Max:      " + repr(retval.fluxmax) + " (" + repr(retval.sigmamax) + ")  at  (" + repr(retval.ramax) + ", " + repr(retval.decmax) + ")  [" + repr(retval.xmax) + ", " + repr(retval.ymax) + "]")
+            print("")
+            print("      Average:  " + repr(retval.aveflux) + " +/- " + repr(retval.rmsflux))
+            print("")
+            print("      Radius:   " + repr(retval.radius) + " degrees (" + repr(retval.radpix) + " pixels) / Total area: " + repr(retval.npixel) + " pixels (" + repr(retval.nnull) + " nulls)")
+            print("")
 
         sys.stdout.write('\n>>> ')
         sys.stdout.flush()
@@ -1919,7 +1919,7 @@ class mViewer():
     def draw(self):
 
         if self.debug:
-            print "DEBUG> mViewer.draw(): sending 'updateDisplay' to browser."
+            print("DEBUG> mViewer.draw(): sending 'updateDisplay' to browser.")
 
         self.thread.command("updateDisplay")
 
@@ -1929,6 +1929,6 @@ class mViewer():
     def command(self, message):
 
         if self.debug:
-            print "DEBUG> mViewer.command('" + message + "')"
+            print("DEBUG> mViewer.command('" + message + "')")
 
         self.thread.command(message)
